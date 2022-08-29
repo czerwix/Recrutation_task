@@ -48,4 +48,11 @@ interface GenreDao {
         """
     )
     suspend fun deleteGenres(ids: List<String>): Int
+
+    @Query(
+        value = """
+            DELETE FROM genre
+        """
+    )
+    suspend fun deleteGenres()
 }

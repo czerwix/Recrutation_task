@@ -18,6 +18,10 @@ class AlbumViewModel(
     private val loadTopAlbumUseCase: LoadTopAlbumUseCase
 ) : AndroidViewModel(application) {
 
+    init {
+        loadData()
+    }
+
     private val _uiState: MutableStateFlow<AlbumScreenUiState> =
         MutableStateFlow(AlbumScreenUiState.Loading)
     val uiState: StateFlow<AlbumScreenUiState> = _uiState

@@ -1,9 +1,7 @@
 package com.mobeedev.vama.album.ui
 
 import androidx.annotation.VisibleForTesting
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyGridScope
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -11,6 +9,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -32,7 +31,6 @@ fun AlbumRoute(
     navigateToAlbum: (String) -> Unit
 ) {
     val uiState: AlbumScreenUiState by viewModel.uiState.collectAsStateWithLifecycle()
-    viewModel.loadData()
 
     AlbumsScreen(
         albumState = uiState,
@@ -49,25 +47,26 @@ internal fun AlbumsScreen(
     modifier: Modifier = Modifier,
     navigateToAlbum: (String) -> Unit
 ) {
-    LazyVerticalGrid(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(start = 16.dp, end = 16.dp),
-        columns = GridCells.Fixed(2),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
-    ) {
-
+    Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
         when (albumState) {
-            is AlbumScreenUiState.Success -> albumCards(albumState.topAlumList, navigateToAlbum)
             AlbumScreenUiState.Error -> TODO()
             AlbumScreenUiState.Loading ->
-                item {
-                    VamaLoadingWheel(
-                        modifier = modifier,
-                        contentDesc = stringResource(id = R.string.album_loading),
-                    )
+                VamaLoadingWheel(
+                    modifier = modifier,
+                    contentDesc = stringResource(id = R.string.album_loading),
+                )
+            is AlbumScreenUiState.Success -> {
+                LazyVerticalGrid(
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .padding(start = 16.dp, end = 16.dp),
+                    columns = GridCells.Fixed(2),
+                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    albumCards(albumState.topAlumList, navigateToAlbum)
                 }
+            }
         }
     }
 }

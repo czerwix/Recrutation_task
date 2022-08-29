@@ -1,9 +1,7 @@
 package com.mobeedev.vama.album.ui.details
 
 import androidx.annotation.VisibleForTesting
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
@@ -91,10 +89,14 @@ internal fun albumDetailsCard(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        Column(modifier = modifier.fillMaxWidth()) { //top elements
+        Column(modifier = modifier
+            .fillMaxWidth()
+            .padding(bottom = 60.dp)) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -153,7 +155,8 @@ internal fun albumDetailsCard(
                 albumItem.genres.forEach {
                     VamaOutlinedButton(
                         onClick = { },
-                        small = true,
+                        small = false,
+                        enabled = false,
                         modifier = Modifier.padding(start = 6.dp)
                     ) {
                         Text(text = it.name ?: String.empty, color = Blue, fontSize = 12.sp)
@@ -164,10 +167,9 @@ internal fun albumDetailsCard(
 
         Column(
             modifier = modifier
-                .fillMaxWidth()
-                .padding(bottom = 27.dp),
+                .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
-        ) { //bottom elements
+        ) {
             var parsedDate = String.empty
             try {
                 val localDate = LocalDate.parse(albumItem.releaseDate)

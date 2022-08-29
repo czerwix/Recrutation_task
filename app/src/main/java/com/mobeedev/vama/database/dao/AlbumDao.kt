@@ -2,6 +2,7 @@ package com.mobeedev.vama.database.dao
 
 import androidx.room.*
 import com.mobeedev.vama.database.model.AlbumEntity
+import com.mobeedev.vama.database.model.AlbumGenreCrossRef
 import com.mobeedev.vama.database.model.PopulatedAlbum
 
 @Dao
@@ -34,6 +35,11 @@ interface AlbumDao {
         updateMany = ::updateAlbum
     )
 
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertOrIgnoreAlbumGenreCrossRefEntities(
+        albumGenreCrossRef: List<AlbumGenreCrossRef>
+    )
+
     /**
      * Deletes rows in the db matching the specified [ids]
      */
@@ -44,5 +50,12 @@ interface AlbumDao {
         """
     )
     suspend fun deleteAlbums(ids: List<String>)
+
+    @Query(
+        value = """
+            DELETE FROM album_genre
+        """
+    )
+    suspend fun deleteAlbumsCrossRef()
 
 }
