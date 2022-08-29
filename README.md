@@ -50,6 +50,7 @@ the sake of time, I have chosen to use android ready components.
 
 functionality omitted:
 - Animation for titleBar going into sticky TopBar on the albumsScreen.
+- Retry logic when no error occurred while downloading data from API
 - labels for the `Genre` and `Visit album` button on AlbumDetailsScreen.
 
 
