@@ -1,4 +1,4 @@
-Recrutation_task
+Recruitment_task
 ==================
 
 This is the repository for a recruitment application, the entire project was completed in about 1
