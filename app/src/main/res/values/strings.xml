@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Vama Recru</string>
+    <string name="album_loading">Loading top 100 albums!</string>
+<string name="top_albums">Top 100 Albums</string>
+    <string name="visit_the_album">Visit The Album</string>
+</resources>
